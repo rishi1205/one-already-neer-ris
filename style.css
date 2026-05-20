@@ -1,0 +1,476 @@
+/* =============================================
+   ANNIVERSARY SCRAPBOOK — Neer & Rishi
+   Aesthetic: Cream / Dark Romance
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Dancing+Script:wght@400;600;700&family=IM+Fell+English:ital@0;1&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --cream:        #f5f0e8;
+  --cream-dark:   #ede5d8;
+  --cream-warm:   #e8dcc8;
+  --parchment:    #d4c5a9;
+  --brown-light:  #8b6f47;
+  --brown:        #6b4f2f;
+  --brown-dark:   #3d2b1a;
+  --ink:          #1a1008;
+  --rouge:        #8b2635;
+  --rouge-soft:   #c4424e;
+  --blush:        #d4a0a0;
+  --gold:         #b8942a;
+  --gold-light:   #d4a843;
+  --gold-pale:    #e8d5a0;
+  --sepia:        #7a5c3a;
+  --shadow:       rgba(61, 43, 26, 0.15);
+  --shadow-deep:  rgba(26, 16, 8, 0.3);
+
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Cormorant Garamond', serif;
+  --font-script:  'Dancing Script', cursive;
+  --font-literary:'IM Fell English', serif;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: #1a1008;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(139,110,71,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,38,53,0.06) 0%, transparent 50%);
+  font-family: var(--font-body);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Page Navigation ── */
+#page-nav {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(26,16,8,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(184,148,42,0.3);
+  border-radius: 50px;
+  padding: 0.6rem 1.4rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+#page-nav button {
+  background: none;
+  border: none;
+  color: var(--gold-light);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.8rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+#page-nav button:hover {
+  background: rgba(184,148,42,0.15);
+  color: var(--gold-pale);
+}
+
+#page-nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+#page-counter {
+  color: var(--parchment);
+  font-family: var(--font-literary);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  min-width: 80px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── Scrapbook Container ── */
+#scrapbook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* ── Page Base ── */
+.scrapbook-page {
+  display: none;
+  width: 900px;
+  min-height: 650px;
+  background-color: var(--cream);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 50%, var(--cream-warm) 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.1),
+    0 20px 60px rgba(0,0,0,0.5),
+    4px 4px 0 rgba(139,111,71,0.2),
+    inset 0 0 80px rgba(212,197,169,0.3);
+  position: relative;
+  overflow: hidden;
+  animation: pageReveal 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+.scrapbook-page.active {
+  display: block;
+}
+
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotateX(3deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* Paper texture overlay */
+.scrapbook-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(139,111,71,0.04) 28px,
+      rgba(139,111,71,0.04) 29px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Page edge shadow */
+.scrapbook-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(61,43,26,0.12), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Spine / Binding ── */
+.page-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  background: linear-gradient(to right, #3d2b1a, #6b4f2f, #3d2b1a);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 0;
+  z-index: 10;
+}
+
+.spine-hole {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1a1008;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 1px 2px rgba(184,148,42,0.3);
+  border: 1px solid rgba(184,148,42,0.2);
+}
+
+/* ── Page Content Area ── */
+.page-content {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+  height: 100%;
+  min-height: 650px;
+}
+
+/* ── Typography ── */
+.page-title {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  line-height: 1.1;
+}
+
+.page-title.italic {
+  font-style: italic;
+}
+
+.script-text {
+  font-family: var(--font-script);
+  color: var(--brown);
+}
+
+.literary-text {
+  font-family: var(--font-literary);
+  font-style: italic;
+  color: var(--sepia);
+}
+
+/* ── Decorative Elements ── */
+.washi-tape {
+  position: absolute;
+  height: 22px;
+  background: rgba(184,148,42,0.25);
+  border: 1px solid rgba(184,148,42,0.15);
+  transform: rotate(-2deg);
+  z-index: 5;
+}
+
+.corner-decor {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.4;
+}
+.corner-decor.tl { top: 2rem; left: 3rem; border-width: 1.5px 0 0 1.5px; }
+.corner-decor.tr { top: 2rem; right: 2rem; border-width: 1.5px 1.5px 0 0; }
+.corner-decor.bl { bottom: 2rem; left: 3rem; border-width: 0 0 1.5px 1.5px; }
+.corner-decor.br { bottom: 2rem; right: 2rem; border-width: 0 1.5px 1.5px 0; }
+
+/* ── Polaroid ── */
+.polaroid {
+  background: white;
+  padding: 10px 10px 36px;
+  box-shadow:
+    0 4px 16px rgba(61,43,26,0.25),
+    0 1px 3px rgba(0,0,0,0.2);
+  position: relative;
+  display: inline-block;
+}
+
+.polaroid img,
+.polaroid .photo-placeholder {
+  width: 100%;
+  display: block;
+}
+
+.polaroid .photo-placeholder {
+  background: linear-gradient(135deg, var(--cream-dark) 0%, var(--parchment) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--sepia);
+  font-family: var(--font-script);
+  font-size: 0.9rem;
+  border: 1px dashed var(--parchment);
+}
+
+.polaroid .caption {
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: 0.95rem;
+  color: var(--sepia);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── Envelope ── */
+.envelope {
+  position: relative;
+  display: inline-block;
+}
+
+.envelope-body {
+  background: var(--rouge);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(135deg, #8b2635 50%, #6b1a27 50%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--parchment), transparent);
+}
+
+.divider span {
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-family: var(--font-literary);
+}
+
+/* ── Stamp effect ── */
+.stamp {
+  display: inline-block;
+  border: 2px solid var(--rouge);
+  padding: 0.3rem 0.8rem;
+  color: var(--rouge);
+  font-family: var(--font-literary);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  transform: rotate(-8deg);
+  position: absolute;
+}
+
+/* ── Sticky note ── */
+.sticky-note {
+  background: #fdf6e3;
+  border: 1px solid rgba(139,111,71,0.2);
+  padding: 1rem;
+  box-shadow: 2px 3px 8px rgba(61,43,26,0.15);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--brown-dark);
+  line-height: 1.6;
+  position: relative;
+}
+
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 16px;
+  background: rgba(184,148,42,0.35);
+}
+
+/* ── Heart ── */
+.heart {
+  display: inline-block;
+  color: var(--rouge);
+  font-size: 1rem;
+}
+
+/* ── Photo grid ── */
+.photo-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.photo-item {
+  position: relative;
+}
+
+.photo-frame {
+  background: white;
+  padding: 6px 6px 24px;
+  box-shadow: 0 3px 10px rgba(61,43,26,0.2);
+}
+
+.month-label {
+  font-family: var(--font-script);
+  font-size: 0.8rem;
+  color: var(--sepia);
+  text-align: center;
+  margin-top: 3px;
+}
+
+/* ── Scrollable content ── */
+.scroll-content {
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--parchment) transparent;
+  padding-right: 0.5rem;
+}
+
+/* ── Page number ── */
+.page-num {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 2rem;
+  font-family: var(--font-literary);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--parchment);
+  z-index: 10;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .scrapbook-page {
+    width: 95vw;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-content {
+    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+  }
+  .page-title {
+    font-size: 2rem;
+  }
+}
+
+/* ── Torn paper edge ── */
+.torn-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: var(--cream);
+  clip-path: polygon(0% 100%, 2% 0%, 5% 80%, 8% 20%, 11% 90%, 14% 10%, 17% 70%, 20% 0%, 23% 60%, 26% 30%, 29% 85%, 32% 5%, 35% 75%, 38% 15%, 41% 90%, 44% 0%, 47% 65%, 50% 25%, 53% 80%, 56% 10%, 59% 70%, 62% 5%, 65% 85%, 68% 20%, 71% 60%, 74% 0%, 77% 75%, 80% 15%, 83% 90%, 86% 30%, 89% 65%, 92% 0%, 95% 80%, 98% 10%, 100% 50%, 100% 100%);
+  z-index: 5;
+}
+
+/* ── Gold flourish ── */
+.flourish {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 0.5em;
+  opacity: 0.5;
+  margin: 0.5rem 0;
+}
